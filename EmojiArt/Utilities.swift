@@ -4,6 +4,8 @@
 //  Created by CS193p Instructor.
 //  Copyright © 2017 Stanford University. All rights reserved.
 //
+// line 123 and 169 updated for obsolete/depreciated methods
+
 import UIKit
 
 class ImageFetcher
