@@ -45,6 +45,7 @@
 			isa = PBXGroup;
 			children = (
 				988C4300234B87140055A915 /* EmojiArt */,
+				988C42FF234B87140055A915 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,7 +55,6 @@
 				988C42FE234B87140055A915 /* EmojiArt.app */,
 			);
 			name = Products;
-			path = ..;
 			sourceTree = "<group>";
 		};
 		988C4300234B87140055A915 /* EmojiArt */ = {
@@ -67,7 +67,6 @@
 				988C4318234B94980055A915 /* Utilities.swift */,
 				988C4313234B8A510055A915 /* Supporting Files */,
 				988C430D234B87150055A915 /* Info.plist */,
-				988C42FF234B87140055A915 /* Products */,
 			);
 			path = EmojiArt;
 			sourceTree = "<group>";
