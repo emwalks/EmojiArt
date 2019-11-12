@@ -78,16 +78,22 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LOX-7Y-psG">
                                 <rect key="frame" x="0.0" y="20" width="703.5" height="748"/>
                                 <subviews>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aBE-K6-zlb">
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aBE-K6-zlb">
                                         <rect key="frame" x="0.0" y="0.0" width="703.5" height="748"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" priority="250" constant="748" id="DHV-jC-6kt"/>
+                                            <constraint firstAttribute="width" priority="250" constant="703.5" id="Oo0-Lb-TNd"/>
+                                        </constraints>
                                     </scrollView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.99763482809066772" green="0.99231181795459844" blue="0.75934315774793204" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstItem="aBE-K6-zlb" firstAttribute="leading" secondItem="LOX-7Y-psG" secondAttribute="leading" id="E33-Ou-9bm"/>
-                                    <constraint firstAttribute="bottom" secondItem="aBE-K6-zlb" secondAttribute="bottom" id="ZSw-Ty-q4c"/>
-                                    <constraint firstItem="aBE-K6-zlb" firstAttribute="top" secondItem="LOX-7Y-psG" secondAttribute="top" id="pmV-eM-9gy"/>
-                                    <constraint firstAttribute="trailing" secondItem="aBE-K6-zlb" secondAttribute="trailing" id="sU6-DA-Efc"/>
+                                    <constraint firstItem="aBE-K6-zlb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="LOX-7Y-psG" secondAttribute="leading" id="E33-Ou-9bm"/>
+                                    <constraint firstItem="aBE-K6-zlb" firstAttribute="centerY" relation="greaterThanOrEqual" secondItem="LOX-7Y-psG" secondAttribute="centerY" id="JWC-kj-w82"/>
+                                    <constraint firstItem="aBE-K6-zlb" firstAttribute="centerX" relation="greaterThanOrEqual" secondItem="LOX-7Y-psG" secondAttribute="centerX" id="TXH-dM-G3w"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="aBE-K6-zlb" secondAttribute="bottom" id="ZSw-Ty-q4c"/>
+                                    <constraint firstItem="aBE-K6-zlb" firstAttribute="top" relation="greaterThanOrEqual" secondItem="LOX-7Y-psG" secondAttribute="top" id="pmV-eM-9gy"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="aBE-K6-zlb" secondAttribute="trailing" id="sU6-DA-Efc"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -103,6 +109,8 @@
                     <connections>
                         <outlet property="dropZone" destination="LOX-7Y-psG" id="Brz-AG-Yph"/>
                         <outlet property="scrollView" destination="aBE-K6-zlb" id="7MW-Eq-bdQ"/>
+                        <outlet property="scrollViewHeight" destination="DHV-jC-6kt" id="OVw-ZZ-47D"/>
+                        <outlet property="scrollViewWidth" destination="Oo0-Lb-TNd" id="6OI-Xh-RRW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
