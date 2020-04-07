@@ -41,6 +41,8 @@ class EmojiArtDocumentTableViewController: UITableViewController
         tableView.reloadData()
     }
     
+    //we put preferredDisplayMode here so that it does not get set back to automatic every time the view gets redrawn
+    //we need the check so that setting preferredDisplayMode ITSELF doesn't cause layoutSubviews to be called repeatedly.
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         if splitViewController?.preferredDisplayMode != .primaryOverlay {
