@@ -86,14 +86,10 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="aBE-K6-zlb" firstAttribute="top" secondItem="LOX-7Y-psG" secondAttribute="top" id="9Cl-YC-VvP"/>
-                                    <constraint firstAttribute="trailing" secondItem="aBE-K6-zlb" secondAttribute="trailing" id="DeF-dH-Xol"/>
                                     <constraint firstItem="aBE-K6-zlb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="LOX-7Y-psG" secondAttribute="leading" id="E33-Ou-9bm"/>
-                                    <constraint firstItem="aBE-K6-zlb" firstAttribute="centerY" relation="greaterThanOrEqual" secondItem="LOX-7Y-psG" secondAttribute="centerY" id="JWC-kj-w82"/>
-                                    <constraint firstItem="aBE-K6-zlb" firstAttribute="centerX" relation="greaterThanOrEqual" secondItem="LOX-7Y-psG" secondAttribute="centerX" id="TXH-dM-G3w"/>
-                                    <constraint firstAttribute="bottom" secondItem="aBE-K6-zlb" secondAttribute="bottom" id="Uaa-4c-A4a"/>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="aBE-K6-zlb" secondAttribute="bottom" id="ZSw-Ty-q4c"/>
-                                    <constraint firstItem="aBE-K6-zlb" firstAttribute="leading" secondItem="LOX-7Y-psG" secondAttribute="leading" id="jIf-XU-tGx"/>
+                                    <constraint firstItem="aBE-K6-zlb" firstAttribute="centerX" secondItem="LOX-7Y-psG" secondAttribute="centerX" id="itS-yP-FlG"/>
+                                    <constraint firstItem="aBE-K6-zlb" firstAttribute="centerY" secondItem="LOX-7Y-psG" secondAttribute="centerY" id="jpX-q1-ZUM"/>
                                     <constraint firstItem="aBE-K6-zlb" firstAttribute="top" relation="greaterThanOrEqual" secondItem="LOX-7Y-psG" secondAttribute="top" id="pmV-eM-9gy"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="aBE-K6-zlb" secondAttribute="trailing" id="sU6-DA-Efc"/>
                                 </constraints>
