@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EmojiArtViewController: UIViewController, UIDropInteractionDelegate, UIScrollViewDelegate
+class EmojiArtViewController: UIViewController, UIDropInteractionDelegate, UIScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate
 {
     //by making the dropZone separate to the emoji art view we can keep track of what's being dropped in at the controller level but could be the same UIView
     @IBOutlet weak var dropZone: UIView! {
@@ -59,6 +59,17 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate, UIScr
         }
     }
     
+    // MARK: - Collection View
+    
+    
+    @IBOutlet weak var emojiCollectionView: UICollectionView! {
+        didSet{
+            emojiCollectionView.dataSource = self
+            emojiCollectionView.delegate = self
+        }
+    }
+    
+    // MARK: - DropZone
     
     //only want drags that have an image and a URL for that image
     //This whole thing is obj-c compatible and so it's a NSURL class

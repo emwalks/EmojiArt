@@ -97,12 +97,13 @@
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="7HW-kN-NMv">
                                 <rect key="frame" x="0.0" y="0.0" width="703.5" height="80"/>
-                                <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="Ntd-Dw-UMw"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="J3q-Wf-fSh">
                                     <size key="itemSize" width="80" height="80"/>
+                                    <size key="estimatedItemSize" width="80" height="80"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -114,6 +115,18 @@
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="dpz-Ki-7Xg">
                                             <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🙂" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yKW-YN-Uxf">
+                                                    <rect key="frame" x="5.5" y="1.5" width="69" height="77"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="64"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="yKW-YN-Uxf" firstAttribute="centerX" secondItem="dpz-Ki-7Xg" secondAttribute="centerX" id="i9D-IQ-rXE"/>
+                                                <constraint firstItem="yKW-YN-Uxf" firstAttribute="centerY" secondItem="dpz-Ki-7Xg" secondAttribute="centerY" id="r3s-nA-OBn"/>
+                                            </constraints>
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
                                 </cells>
@@ -133,6 +146,7 @@
                     </view>
                     <connections>
                         <outlet property="dropZone" destination="LOX-7Y-psG" id="Brz-AG-Yph"/>
+                        <outlet property="emojiCollectionView" destination="7HW-kN-NMv" id="uXk-Cv-DgX"/>
                         <outlet property="scrollView" destination="aBE-K6-zlb" id="7MW-Eq-bdQ"/>
                         <outlet property="scrollViewHeight" destination="DHV-jC-6kt" id="OVw-ZZ-47D"/>
                         <outlet property="scrollViewWidth" destination="Oo0-Lb-TNd" id="6OI-Xh-RRW"/>
