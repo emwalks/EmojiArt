@@ -62,6 +62,7 @@ class EmojiArtView: UIView, UIDropInteractionDelegate
     //   label.attributedText = attributedString
         label.sizeToFit()
         label.center = point
+        //these recognise taps, pinches etc to the emojis
         addEmojiArtGestureRecognizers(to: label)
         addSubview(label)
     }
