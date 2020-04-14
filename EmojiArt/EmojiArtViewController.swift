@@ -136,18 +136,19 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate, UIScr
         let isSelf = session.localDragSession?.localContext as? UICollectionView == collectionView
         return UICollectionViewDropProposal(operation: isSelf ? .move : .copy, intent: .insertAtDestinationIndexPath)
     }
-    
-    //when we perform drop we need to update our model and the collection view
-    //also dealing with 2 kinds of drop (external and internal)
-    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
-        //collectionViews' coordinator gives us all our info required for drop
-        // this sets a default index path as (0, 0) if there isn't one
+
+        //when we perform drop we need to update our model and the collection view
+        //also dealing with 2 kinds of drop (external and internal)
+    func collectionView(
+        _ collectionView: UICollectionView,
+        performDropWith coordinator: UICollectionViewDropCoordinator
+    ) {
+                //collectionViews' coordinator gives us all our info required for drop
+                // this sets a default index path as (0, 0) if there isn't one
         let destinationIndexPath = coordinator.destinationIndexPath ?? IndexPath(item: 0, section: 0)
         for item in coordinator.items {
-            //if I know the item.sourceIndexPath this must be a local context
             if let sourceIndexPath = item.sourceIndexPath {
                 if let attributedString = item.dragItem.localObject as? NSAttributedString {
-                    // here we use perform batch updates to keep models in sync - not 4 discrete steps
                     // If you are doing multiple adjustments to the model of a collection view or table view use the perform batch updates function to keep them in sync
                     collectionView.performBatchUpdates({
                         emojis.remove(at: sourceIndexPath.item)
@@ -165,18 +166,18 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate, UIScr
                     item.dragItem,
                     to: UICollectionViewDropPlaceholder(insertionIndexPath: destinationIndexPath, reuseIdentifier: "DropPlaceholderCell")
                 )
-                item.dragItem.itemProvider  .loadObject(ofClass: NSAttributedString.self) { (provider, error) in
-                    //this closure is not performed on the main queue, but has UI so need to dispatch to main q
+                item.dragItem.itemProvider.loadObject(ofClass: NSAttributedString.self) { (provider, error) in
+                     //this closure is not performed on the main queue, but has UI so need to dispatch to main q
                     DispatchQueue.main.async {
-                        if let attributedString = provider as? NSAttributedString {  placeholderContext.commitInsertion(dataSourceUpdates:  { insertionIndexPath in
-                            self.emojis.insert(attributedString.string, at: insertionIndexPath.item)
+                        if let attributedString = provider as? NSAttributedString {
+                            placeholderContext.commitInsertion(dataSourceUpdates: { insertionIndexPath in
+                                self.emojis.insert(attributedString.string, at: insertionIndexPath.item)
                             })
                         } else {
-                            //if you error - can't get the attributedString then delete  the placeholder
+                        //if you error - can't get the attributedString then delete  the placeholder
                             placeholderContext.deletePlaceholder()
                         }
                     }
-                    
                 }
             }
         }
