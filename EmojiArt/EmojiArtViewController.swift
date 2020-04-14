@@ -8,10 +8,9 @@
 
 import UIKit
 
-class EmojiArtViewController: UIViewController, UIDropInteractionDelegate, UIScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDragDelegate
+class EmojiArtViewController: UIViewController, UIDropInteractionDelegate, UIScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDragDelegate, UICollectionViewDropDelegate
 {
- 
-
+    
     //by making the dropZone separate to the emoji art view we can keep track of what's being dropped in at the controller level but could be the same UIView
     @IBOutlet weak var dropZone: UIView! {
         didSet {
@@ -71,13 +70,13 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate, UIScr
             emojiCollectionView.dataSource = self
             emojiCollectionView.delegate = self
             emojiCollectionView.dragDelegate = self
-            
+            emojiCollectionView.dropDelegate = self
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return emojis.count
-     }
+    }
     
     //this scales for accessibility settings from 64 pt
     //but need to set up the collection view to scale in size for this setting
@@ -85,19 +84,20 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate, UIScr
         return UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.preferredFont(forTextStyle: .body).withSize(64.0))
     }
     
-     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmojiCell", for: indexPath)
         if let emojiCell = cell as? EmojiCollectionViewCell {
             let text = NSAttributedString(string: emojis[indexPath.item], attributes: [.font:font])
             emojiCell.label.attributedText = text
         }
         return cell
-     }
+    }
     
     //the collection view func has indexPAth already
     func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        session.localContext = collectionView
         return dragItems(at: indexPath)
-     }
+    }
     
     //this function allows you drag multiple items
     func collectionView(_ collectionView: UICollectionView, itemsForAddingTo session: UIDragSession, at indexPath: IndexPath, point: CGPoint) -> [UIDragItem] {
@@ -112,7 +112,8 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate, UIScr
         if let attributedString = (emojiCollectionView.cellForItem(at: indexPath) as? EmojiCollectionViewCell)?.label.attributedText {
             let dragItem = UIDragItem(itemProvider: NSItemProvider(object: attributedString))
             //if you are not dragging outside the app (local) then you don't need to worry about setting async stuff like in drop
-            //less item provider stuff
+            //less item provider stuff to deal with
+            // just going to stash in local object
             dragItem.localObject = attributedString
             return [dragItem]
         } else {
@@ -120,6 +121,45 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate, UIScr
             return []
         }
         
+    }
+    
+    // this allows you to drop any attributed string
+    func collectionView(_ collectionView: UICollectionView, canHandle session: UIDropSession) -> Bool {
+        return session.canLoadObjects(ofClass: NSAttributedString.self)
+    }
+    
+    // here you set the intent - do you want to insert AT or insert into i.e. add a new one (insertAT) or replace current (insert into)
+    // here if I am moving an existing emoji around in my collection view, I don't want to copy, I want to move
+    // need to know if I am inside my own collection view
+    // going to fix this in the items for begining by setting a local context, then here on drop do different ops depending on context
+    func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
+        let isSelf = session.localDragSession?.localContext as? UICollectionView == collectionView
+        return UICollectionViewDropProposal(operation: isSelf ? .move : .copy, intent: .insertAtDestinationIndexPath)
+    }
+    
+    //when we perform drop we need to update our model and the collection view
+    //also dealing with 2 kinds of drop (external and internal)
+    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
+        //collectionViews' coordinator gives us all our info required for drop
+        // this sets a default index path as (0, 0) if there isn't one
+        let destinationIndexPath = coordinator.destinationIndexPath ?? IndexPath(item: 0, section: 0)
+        for item in coordinator.items {
+            //if I know the item.sourceIndexPath this must be a local context
+            if let sourceIndexPath = item.sourceIndexPath {
+                if let attributedString = item.dragItem.localObject as? NSAttributedString {
+                    // here we use perform batch updates to keep models in sync - not 4 discrete steps
+                    // If you are doing multiple adjustments to the model of a collection view or table view use the perform batch updates function to keep them in sync
+                    collectionView.performBatchUpdates({
+                        emojis.remove(at: sourceIndexPath.item)
+                        emojis.insert(attributedString.string, at: destinationIndexPath.item)
+                        collectionView.deleteItems(at: [sourceIndexPath])
+                        collectionView.insertItems(at: [destinationIndexPath])
+                    })
+                    // this provides the animation
+                    coordinator.drop(item.dragItem, toItemAt: destinationIndexPath)
+                }
+            }
+        }
     }
     
     // MARK: - DropZone
