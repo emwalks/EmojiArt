@@ -15,5 +15,6 @@ Techniques implemented include:
 - Drag & Drop
 - UITableView
 - UICollectionView
-- Multitasking (split view & scroll view)
+- Multitasking 
 - Making split view 
+- Scroll views
