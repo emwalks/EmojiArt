@@ -152,7 +152,7 @@
                                 </cells>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="LOX-7Y-psG" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="2Tf-hw-vb4"/>
                             <constraint firstItem="LOX-7Y-psG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="60e-nX-tfN"/>
