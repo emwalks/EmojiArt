@@ -158,6 +158,26 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate, UIScr
                     // this provides the animation
                     coordinator.drop(item.dragItem, toItemAt: destinationIndexPath)
                 }
+            } else {
+                //here I am dealing with non-localised drag-drop
+                //need to use a placeholder until you've received the data
+                let placeholderContext = coordinator.drop(
+                    item.dragItem,
+                    to: UICollectionViewDropPlaceholder(insertionIndexPath: destinationIndexPath, reuseIdentifier: "DropPlaceholderCell")
+                )
+                item.dragItem.itemProvider  .loadObject(ofClass: NSAttributedString.self) { (provider, error) in
+                    //this closure is not performed on the main queue, but has UI so need to dispatch to main q
+                    DispatchQueue.main.async {
+                        if let attributedString = provider as? NSAttributedString {  placeholderContext.commitInsertion(dataSourceUpdates:  { insertionIndexPath in
+                            self.emojis.insert(attributedString.string, at: insertionIndexPath.item)
+                            })
+                        } else {
+                            //if you error - can't get the attributedString then delete  the placeholder
+                            placeholderContext.deletePlaceholder()
+                        }
+                    }
+                    
+                }
             }
         }
     }
