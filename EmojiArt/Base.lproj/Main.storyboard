@@ -167,7 +167,7 @@
                                             </constraints>
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="EmojiInputCell" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="EmojiInputCell" id="aOf-ud-uWO">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="EmojiInputCell" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="EmojiInputCell" id="aOf-ud-uWO" customClass="TextFieldCollectionViewCell" customModule="EmojiArt" customModuleProvider="target">
                                         <rect key="frame" x="270" y="0.0" width="80" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="GDb-Dw-qnw">
