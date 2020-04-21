@@ -186,6 +186,9 @@
                                                 <constraint firstAttribute="trailing" secondItem="wfj-wg-77a" secondAttribute="trailing" constant="10" id="tCC-oY-QKN"/>
                                             </constraints>
                                         </collectionViewCellContentView>
+                                        <connections>
+                                            <outlet property="textField" destination="wfj-wg-77a" id="cyC-MJ-3eB"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
