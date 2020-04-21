@@ -103,7 +103,6 @@
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="J3q-Wf-fSh">
                                     <size key="itemSize" width="80" height="80"/>
-                                    <size key="estimatedItemSize" width="80" height="80"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -146,6 +145,45 @@
                                             <constraints>
                                                 <constraint firstItem="JRX-Qi-NGz" firstAttribute="centerY" secondItem="EHt-Lp-H5M" secondAttribute="centerY" id="e8o-AN-bSW"/>
                                                 <constraint firstItem="JRX-Qi-NGz" firstAttribute="centerX" secondItem="EHt-Lp-H5M" secondAttribute="centerX" id="q0T-35-Bg7"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="AddEmojiButtonCell" id="ev4-RZ-qQa">
+                                        <rect key="frame" x="180" y="0.0" width="80" height="80"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="PV2-8h-Baf">
+                                            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GRI-ji-TSc">
+                                                    <rect key="frame" x="20.5" y="-4.5" width="39" height="89"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="64"/>
+                                                    <state key="normal" title="+"/>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="GRI-ji-TSc" firstAttribute="centerY" secondItem="PV2-8h-Baf" secondAttribute="centerY" id="naE-2f-LWa"/>
+                                                <constraint firstItem="GRI-ji-TSc" firstAttribute="centerX" secondItem="PV2-8h-Baf" secondAttribute="centerX" id="zID-Ki-MBw"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="EmojiInputCell" insetsLayoutMarginsFromSafeArea="NO" id="aOf-ud-uWO">
+                                        <rect key="frame" x="270" y="0.0" width="80" height="80"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="GDb-Dw-qnw">
+                                            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wfj-wg-77a">
+                                                    <rect key="frame" x="10" y="6" width="60" height="68"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="wfj-wg-77a" firstAttribute="leading" secondItem="GDb-Dw-qnw" secondAttribute="leading" constant="10" id="bUz-oy-tU8"/>
+                                                <constraint firstItem="wfj-wg-77a" firstAttribute="centerY" secondItem="GDb-Dw-qnw" secondAttribute="centerY" id="jsc-qh-n9d"/>
+                                                <constraint firstAttribute="trailing" secondItem="wfj-wg-77a" secondAttribute="trailing" constant="10" id="tCC-oY-QKN"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
