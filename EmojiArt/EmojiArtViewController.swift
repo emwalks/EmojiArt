@@ -105,13 +105,58 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate, UIScr
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmojiCell", for: indexPath)
-        if let emojiCell = cell as? EmojiCollectionViewCell {
-            let text = NSAttributedString(string: emojis[indexPath.item], attributes: [.font:font])
-            emojiCell.label.attributedText = text
+        if indexPath.section == 1 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmojiCell", for: indexPath)
+            if let emojiCell = cell as? EmojiCollectionViewCell {
+                let text = NSAttributedString(string: emojis[indexPath.item], attributes: [.font:font])
+                emojiCell.label.attributedText = text
+            }
+            return cell
+        } else if addingEmoji {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmojiInputCell", for: indexPath)
+            if let inputCell = cell as? TextFieldCollectionViewCell {
+                //here we implement the closure
+                //self if the VC, points to CollectionView, collection view points to cells and here in the cell we point back to the VC (self.emojis!)
+                //also the inputCell here is in the closure and so is captured in the closure but it is pointing to the closure itself (if let inputCell =...)
+                //we use unowned because we wouldn't be in closure if we didn't have an input cell
+                inputCell.resignationHandler = { [weak self, unowned inputCell] in
+                    if let text = inputCell.textField.text {
+                        self?.emojis = (text.map { String ($0)} + self!.emojis).uniquified
+                    }
+                    self?.addingEmoji = false
+                    //we've changed the model so reload the data
+                    self?.emojiCollectionView.reloadData()
+                }
+            }
+            
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddEmojiButtonCell", for: indexPath)
+            return cell
         }
-        return cell
     }
+    
+    // MARK: - UICollectionViewDelegateFlowLayout
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if addingEmoji && indexPath.section == 0 {
+            // if we are adding an emoji we want the text field to be big
+            // should really calculate this based on accessibility etc
+            return CGSize(width: 300, height: 80)
+        } else {
+            return CGSize(width: 80, height: 80)
+        }
+    }
+    
+      // MARK: - UICollectionViewDelegate
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if let inputCell = cell as? TextFieldCollectionViewCell {
+            inputCell.textField.becomeFirstResponder()
+        }
+    }
+    
+        // MARK: - UICollectionViewDragDelegate
     
     //the collection view func has indexPAth already
     func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
@@ -129,7 +174,7 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate, UIScr
     private func dragItems(at indexPath: IndexPath) -> [UIDragItem] {
         //here we get the NSAttributed string from the label you have selected (cellForItem) from the collection view
         //then we create a drag item with the item of type NSItemProvider that has a constructor where you can pass an object
-        if let attributedString = (emojiCollectionView.cellForItem(at: indexPath) as? EmojiCollectionViewCell)?.label.attributedText {
+        if !addingEmoji, let attributedString = (emojiCollectionView.cellForItem(at: indexPath) as? EmojiCollectionViewCell)?.label.attributedText {
             let dragItem = UIDragItem(itemProvider: NSItemProvider(object: attributedString))
             //if you are not dragging outside the app (local) then you don't need to worry about setting async stuff like in drop
             //less item provider stuff to deal with
@@ -153,8 +198,12 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate, UIScr
     // need to know if I am inside my own collection view
     // going to fix this in the items for begining by setting a local context, then here on drop do different ops depending on context
     func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
-        let isSelf = session.localDragSession?.localContext as? UICollectionView == collectionView
-        return UICollectionViewDropProposal(operation: isSelf ? .move : .copy, intent: .insertAtDestinationIndexPath)
+        if let indexPath = destinationIndexPath, indexPath.section == 1 {
+            let isSelf = session.localDragSession?.localContext as? UICollectionView == collectionView
+            return UICollectionViewDropProposal(operation: isSelf ? .move : .copy, intent: .insertAtDestinationIndexPath)
+        } else {
+            return UICollectionViewDropProposal(operation: .cancel)
+        }
     }
     
     //when we perform drop we need to update our model and the collection view
