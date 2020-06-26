@@ -17,4 +17,4 @@ Techniques implemented include:
 - UICollectionView
 - Multitasking 
 - Making split view 
-- Scroll views
+- Scroll views 
