@@ -5,6 +5,7 @@
 This repo keeps track of my progress following Stanford's CS193P course (resources dated 2017-18).
 
 ## EmojiArt
+Example
 
 ### Project 4: Editor to create pictures using emojis
 
@@ -17,4 +18,5 @@ Techniques implemented include:
 - UICollectionView
 - Multitasking 
 - Making split view 
-- Scroll views 
+- Scroll views
+-  
